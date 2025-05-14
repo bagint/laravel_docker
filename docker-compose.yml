@@ -10,7 +10,11 @@ services:
     ports:
       - 9000:9000
     depends_on:
-      - mysql
+      - postgres
+    environment:
+      PHP_IDE_CONFIG: "serverName=laravel-docker"
+      XDEBUG_MODE: develop,debug
+      XDEBUG_CONFIG: "client_host=host.docker.internal"
 
   web:
     image: nginx:latest
@@ -23,19 +27,18 @@ services:
     depends_on:
       - app
 
-  mysql:
-    image: mysql:8.0
-    container_name: mysql
-#    restart: always
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    restart: always
     environment:
-      MYSQL_DATABASE: laravel
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: laravel
-      MYSQL_PASSWORD: secret
+      POSTGRES_DB: laravel
+      POSTGRES_USER: laravel
+      POSTGRES_PASSWORD: secret
     ports:
-      - 3306:3306
+      - 5432:5432
     volumes:
-      - dbdata:/var/lib/mysql
+      - pgdata:/var/lib/postgresql/data
 
 volumes:
-  dbdata:
+  pgdata:
