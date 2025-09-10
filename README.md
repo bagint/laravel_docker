@@ -21,7 +21,7 @@ sudo find . -type f -exec chmod 664 {} \;
 sudo find . -type d -exec chmod 775 {} \;
 sudo chown -R www-data:www-data storage bootstrap/cache
 ```
-3. Или (в контейнере app):
+2. Или (в контейнере app):
 ```
 docker-compose exec app bash
 chown -R www-data:www-data storage bootstrap/cache
